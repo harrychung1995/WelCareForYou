@@ -1,0 +1,644 @@
+﻿@model WelCareForYou.Models.Client
+@{
+	ViewBag.Title = "Index";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css">
+    <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+    <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.jquery.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.css">
+</head>
+
+<style>
+	.panel {
+		display: none;
+	}
+
+	.form-dropdown {
+		text-indent: 40%;
+	}
+
+	select:focus {
+		background-color: lightyellow;
+	}
+</style>
+
+<!--================ Start banner Area =================-->
+<section class="banner-area relative" style="background-image:url('../Content/images/healthBanner.jpg')">
+	<div class="overlay overlay-bg"></div>
+    <div class="container">
+        <div class="row justify-content-lg-end align-items-center banner-content">
+            <div class="col-lg-5">
+                <h1 class="text-white" data-aos="fade-up">Mental health services near you!</h1>
+                <p style="font-size:20px" data-aos="fade-up" data-aos-delay="1000">
+                    We provide information on mental health and counselling centres based on your suburb along with ways under which you can receive subsidised services.
+                </p>
+            </div>
+        </div>
+        <div class="col-md-12 d-flex justify-content-center" style="min-height:80px;" data-aos="zoom-in" data-aos-offset="-100000">
+            <div>
+                <img id="scrollDown" style="cursor:pointer; margin-top:20%;" onclick="scrollToIntro()" alt="Arrow Down Icon" src="https://www.solodev.com/assets/anchor/arrow-down.png">
+            </div>
+        </div>
+    </div>
+</section>
+<!--================ End banner Area =================-->
+
+<!--================ Start better access Area =================-->
+<section id="scrollSection1"></section>
+<section class="features-area section-gap-top" id="section1" style="padding-top:100px;" data-aos="fade-up" data-aos-duration="800" data-aos-offset="-100000">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="section-title">
+                    <h2 style="color:orangered; font-size:xx-large;">The "BETTER ACCESS" initiative</h2>
+                    <br />
+                    <h4>This government initiative provides clients with better access to mental health practitioners through Medicare. Through this initiative you can receive subsidised or free access to mental health services. Check out the steps below to find out how.</h4>
+                </div>
+            </div>
+        </div>
+        <div class="row feature_inner">
+            <div class="col-lg-4 col-md-12" data-aos="fade-up-right" style="margin-bottom:2%;">
+                <div class="feature-item" style="height:100%; ">
+                    <h4>Step One</h4>
+                    <div style="margin-bottom:20px;">
+                        <img src="~/Content/images/number-1.png" />
+                    </div>
+                    <p style="font-size:20px;color:orangered;">
+                        <br />
+                        Visit your GP to check whether a "GP Mental Health Treatment Plan" is appropriate for you.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12" data-aos="zoom-in-up" style="margin-bottom:2%;">
+                <div class="feature-item" style="height:100%;">
+                    <h4>Step Two</h4>
+                    <div style="margin-bottom:20px;">
+                        <img src="~/Content/images/number-2.png" />
+                    </div>
+                    <p style="font-size:20px;color:orangered" ;>
+                        <br />
+                        Refer to "Medicare rebateable allied Mental Health Services" once you meet the criteria
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12" data-aos="fade-up-left" style="margin-bottom:2%;">
+                <div class="feature-item" style="height:100%;">
+                    <h4>Step Three</h4>
+                    <div style="margin-bottom:20px">
+
+                        <img src="~/Content/images/number-3.png" />
+                    </div>
+
+                    <p style="font-size:20px;color:orangered">
+                        Get your treatment! (a maximum of ten individual and ten group services per calendar year.)
+
+                        <br />
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div style="float:right;">
+            <a style="color:dimgray;" href="https://www1.health.gov.au/internet/main/publishing.nsf/Content/mental-ba-fact-pat">More information from the Department of Health in Australian Government</a>
+        </div>
+        <div>
+            <h2></h2>
+            <button class="primary-btn mt-3" type="button" id="searchButton"
+                    onclick="moreServiceOnClick()" >
+                Find services near you
+            </button>
+        </div>
+    </div>
+</section>
+<!--================ End Features Area =================-->
+<!--================ Start service intro Area =================-->
+<section class="about_area lite_bg" id="search" style="display: none;">
+	<div class="container">
+		<div class="col-lg-5">
+			<div class="about_details lite_bg">
+				<h2>
+					Mental Health Doctors and Centres near you!
+				</h2>
+				<p class="top_text">
+					Select a suburb of your choice in order to find the closest mental health and counselling centres in and around that suburb.
+				</p>
+
+				<h5 style="margin-bottom:2%;">Please select your suburb  </h5> <span class="fa fa-exclamation" id="invalidPostcode" style="color:red; display:none; font-weight:bold;">  Please select a surbub from the list </span>
+
+				<select style="background-color:#ff573d30;" class="form-control nostyle" id="code" name="postcode" required="required">
+					<option value="">-- Please Select -- </option>
+					<option value="3067">Abbotsford</option>
+					<option value="3206">Albert Park</option>
+					<option value="3305">Alfredton</option>
+					<option value="3078">Alphington</option>
+					<option value="3018">Altona</option>
+					<option value="3148">Armadale</option>
+					<option value="3032">Ascot Vale</option>
+					<option value="3147">Ashburton</option>
+					<option value="3195">Aspendale</option>
+					<option value="3034">Avondale Heights</option>
+					<option value="3875">Bairnsdale</option>
+					<option value="Ballarat%2C%20VIC">Ballarat</option>
+					<option value="3103">Balwyn</option>
+					<option value="3227">Barwon Heads</option>
+					<option value="3153">Bayswater</option>
+					<option value="3193">Beaumaris</option>
+					<option value="3216">Belmont</option>
+					<option value="3672">Benalla</option>
+					<option value="3550">Bendigo</option>
+					<option value="3550">Bendigo East</option>
+					<option value="3204">Bentleigh</option>
+					<option value="3806">Berwick</option>
+					<option value="3130">Blackburn</option>
+					<option value="3155">Boronia</option>
+					<option value="3128">Box Hill</option>
+					<option value="3186">Brighton</option>
+					<option value="3187">Brighton East</option>
+					<option value="3047">Broadmeadows</option>
+					<option value="3056">Brunswick</option>
+					<option value="3105">Bulleen</option>
+					<option value="3083">Bundoora</option>
+					<option value="3357">Buninyong</option>
+					<option value="3121">Burnley</option>
+					<option value="3125">Burwood</option>
+					<option value="3151">Burwood East</option>
+					<option value="3124">Camberwell</option>
+					<option value="3126">Canterbury</option>
+					<option value="3053">Carlton</option>
+					<option value="3054">Carlton North</option>
+					<option value="3163">Carnegie</option>
+					<option value="3197">Carrum</option>
+					<option value="3201">Carrum Downs</option>
+					<option value="3450">Castlemaine</option>
+					<option value="3162">Caulfield</option>
+					<option value="3000">CBD</option>
+					<option value="3148">Chadstone</option>
+					<option value="3196">Chelsea</option>
+					<option value="3192">Cheltenham</option>
+					<option value="3168">Clayton</option>
+					<option value="3068">Clifton Hill</option>
+					<option value="3058">Coburg</option>
+					<option value="3058">Coburg North</option>
+					<option value="3066">Collingwood</option>
+					<option value="3214">Corio</option>
+					<option value="3064">Craigieburn</option>
+					<option value="3977">Cranbourne</option>
+					<option value="3136">Croydon</option>
+					<option value="3175">Dandenong</option>
+					<option value="3175">Dandenong North</option>
+					<option value="3023">Deer Park</option>
+					<option value="3356">Delacombe</option>
+					<option value="3008">Docklands</option>
+					<option value="3108">Doncaster</option>
+					<option value="3109">Doncaster East</option>
+					<option value="3111">Donvale</option>
+					<option value="3936">Dromana</option>
+					<option value="3057">East Brunswick</option>
+					<option value="3123">East Hawthorn</option>
+					<option value="3002">East Melbourne</option>
+					<option value="3183">East St Kilda</option>
+					<option value="3564">Echuca</option>
+					<option value="3185">Elsternwick</option>
+					<option value="3095">Eltham</option>
+					<option value="3184">Elwood</option>
+					<option value="3802">Endeavour Hills</option>
+					<option value="3076">Epping</option>
+					<option value="3040">Essendon</option>
+					<option value="3078">Fairfield</option>
+					<option value="3060">Fawkner</option>
+					<option value="3156">Ferntree Gully</option>
+					<option value="3065">Fitzroy</option>
+					<option value="3068">Fitzroy North</option>
+					<option value="3031">Flemington</option>
+					<option value="3929">Flinders</option>
+					<option value="3550">Flora Hill</option>
+					<option value="3011">Footscray</option>
+					<option value="3131">Forest Hill</option>
+					<option value="3199">Frankston</option>
+					<option value="3220">Geelong</option>
+					<option value="3218">Geelong West</option>
+					<option value="3043">Gladstone Park</option>
+					<option value="3146">Glen Iris</option>
+					<option value="3150">Glen Waverley</option>
+					<option value="3046">Glenroy</option>
+					<option value="3555">Golden Square</option>
+					<option value="3088">Greensborough</option>
+					<option value="3216">Grovedale</option>
+					<option value="3300">Hamilton</option>
+					<option value="3188">Hampton</option>
+					<option value="3976">Hampton Park</option>
+					<option value="3915">Hastings</option>
+					<option value="3122">Hawthorn</option>
+					<option value="3084">Heidelberg</option>
+					<option value="3081">Heidelberg West</option>
+					<option value="3218">Herne Hill</option>
+					<option value="3029">Hoppers Crossing</option>
+					<option value="3402">Horsham</option>
+					<option value="3166">Hughesdale</option>
+					<option value="3099">Hurstbridge</option>
+					<option value="3079">Ivanhoe</option>
+					<option value="3079">Ivanhoe East</option>
+					<option value="3555">Kangaroo Flat</option>
+					<option value="3036">Keilor</option>
+					<option value="3033">Keilor East</option>
+					<option value="3031">Kensington</option>
+					<option value="3101">Kew</option>
+					<option value="3075">Lalor</option>
+					<option value="3212">Lara</option>
+					<option value="3140">Lilydale</option>
+					<option value="3860">Maffra</option>
+					<option value="3144">Malvern</option>
+					<option value="3145">Malvern East</option>
+					<option value="3337">Melton</option>
+					<option value="3194">Mentone</option>
+					<option value="3206">Middle Park</option>
+					<option value="3500">Mildura</option>
+					<option value="3082">Mill Park</option>
+					<option value="3132">Mitcham</option>
+					<option value="3825">Moe</option>
+					<option value="3127">Mont Albert</option>
+					<option value="3094">Montmorency</option>
+					<option value="3039">Moonee Ponds</option>
+					<option value="3195">Mordialloc</option>
+					<option value="3931">Mornington</option>
+					<option value="3840">Morwell</option>
+					<option value="3350">Mount Clear</option>
+					<option value="3149">Mount Waverley</option>
+					<option value="3930">Mt Eliza</option>
+					<option value="3934">Mt Martha</option>
+					<option value="3170">Mulgrave</option>
+					<option value="3163">Murrumbeena</option>
+					<option value="3805">Narre Warren</option>
+					<option value="3825">Newborough</option>
+					<option value="3219">Newcombe</option>
+					<option value="3015">Newport</option>
+					<option value="3220">Newtown</option>
+					<option value="3174">Noble Park</option>
+					<option value="3550">North Bendigo</option>
+					<option value="3215">North Geelong</option>
+					<option value="3051">North Melbourne</option>
+					<option value="3070">Northcote</option>
+					<option value="3131">Nunawading</option>
+					<option value="3046">Oak Park</option>
+					<option value="3166">Oakleigh</option>
+					<option value="3226">Ocean Grove</option>
+					<option value="3810">Pakenham</option>
+					<option value="3195">Parkdale</option>
+					<option value="3052">Parkville</option>
+					<option value="3044">Pascoe Vale</option>
+					<option value="3044">Pascoe Vale South</option>
+					<option value="3207">Port Melbourne</option>
+					<option value="3305">Portland</option>
+					<option value="3944">Portsea</option>
+					<option value="3181">Prahran</option>
+					<option value="3072">Preston</option>
+					<option value="3095">Research</option>
+					<option value="3073">Reservoir</option>
+					<option value="3121">Richmond</option>
+					<option value="3134">Ringwood</option>
+					<option value="3178">Rowville</option>
+					<option value="3064">Roxburgh Park</option>
+					<option value="3853">Sale</option>
+					<option value="3179">Scoresby</option>
+					<option value="3198">Seaford</option>
+					<option value="3356">Sebastopol</option>
+					<option value="3011">Seddon</option>
+					<option value="3661">Seymour</option>
+					<option value="3630">Shepparton</option>
+					<option value="3205">South Melbourne</option>
+					<option value="3141">South Yarra</option>
+					<option value="3006">Southbank</option>
+					<option value="3015">Spotswood</option>
+					<option value="3171">Springvale</option>
+					<option value="3021">St Albans</option>
+					<option value="3182">St Kilda</option>
+					<option value="3182">St Kilda Rd</option>
+					<option value="3429">Sunbury</option>
+					<option value="3020">Sunshine</option>
+					<option value="3127">Surrey Hills</option>
+					<option value="3585">Swan Hill</option>
+					<option value="3037">Sydenham</option>
+					<option value="3106">Templestowe</option>
+					<option value="3074">Thomastown</option>
+					<option value="3071">Thornbury</option>
+					<option value="3142">Toorak</option>
+					<option value="3228">Torquay</option>
+					<option value="3844">Traralgon</option>
+					<option value="3043">Tullamarine</option>
+					<option value="3133">Vermont</option>
+					<option value="3677">Wanagaratta</option>
+					<option value="3152">Wantirna</option>
+					<option value="3820">Warragul</option>
+					<option value="3280">Warrnambool</option>
+					<option value="3355">Wendouree</option>
+					<option value="3030">Werribee</option>
+					<option value="3055">West Brunswick</option>
+					<option value="3012">West Footscray</option>
+					<option value="3003">West Melbourne</option>
+					<option value="3182">West St Kilda</option>
+					<option value="3757">Whittlesea</option>
+					<option value="3016">Williamstown</option>
+					<option value="3181">Windsor</option>
+					<option value="3689">Wodonga</option>
+					<option value="3775">Yarra Ranges</option>
+					<option value="3013">Yarraville</option>
+				</select>
+				<br />
+				<div class="flip">
+					<button class="primary-btn mt-3" type="button" id="searchButton"
+							onclick="initialize()" style="float:inline-start;" >
+						Search  <i style="font-size:28px" class="fa">&#xf00e;</i>
+					</button>
+					<div style="height:49px;">
+						<img src="/Content/images/loading.gif" id="load" style="margin-top: 2%; width: 60px; margin-left: 5%; display:none;" />
+                    </div>
+                    <div>
+                        <br />
+                        <br />
+                        <br />
+                    </div>
+				</div>
+			</div>
+		</div>
+		<div class="about_bg d-lg-block d-none" style="background-image:url('../Content/images/healthSection.jpg')"></div>
+	</div>
+</section>
+<!--================ End service intro Area =================-->
+
+<section id="serviceResult" style="	display: none;">
+	<div style="margin-left:11%; margin-right:11%; margin-top:2%">
+		<h4 id="resultTitle" style="color:black; font-size:28px; font-weight:bold;"> The services near you are...</h4>
+        <div class="row align-items-end">
+            <div class="col-12" style="margin-top:3%">
+                <div id="map" style="width:100%; height:300px;"></div>
+            </div>
+            <!--Service 1-->
+            <div class="col-lg-4 col-md-12" style="margin-top:3%;">
+                <div class="feature-item" style="height:300px; background-color:antiquewhite; cursor:pointer;" onclick="mClick(this)" onmousemove="mOver(this)" onmouseout="mOut(this)">
+                    <h4 id="service1" style="margin-top:6%;"> </h4>
+                    <br />
+                    <p style="display:none;">1</p>
+                    <p>
+                        Location: <span id="address1"></span>
+                    </p>
+                    <p>
+                        Phone: <span id="phone1"></span>
+                    </p>
+                    <p>
+                        <span>
+                            <a id="website1" href="https://welcareforyou.me/" target="_blank" style="color:#ff573d;">Website</a>
+                        </span>
+                    </p>                 
+                </div>
+            </div>
+            <!--Service 2-->
+            <div class="col-lg-4 col-md-12" style="margin-top:3%">
+                <div class="feature-item" style="height:300px;background-color:antiquewhite; cursor:pointer;" onclick="mClick(this)" onmousemove="mOver(this)" onmouseout="mOut(this)">
+                    <h4 id="service2" style="margin-top:6%;"></h4>
+                    <br />
+                    <p style="display:none;">2</p>
+                    <p>
+                        Location: <span id="address2"></span>
+                    </p>
+                    <p>
+                        Phone: <span id="phone2"></span>
+                    </p>
+                    <p>
+                        <span>
+                            <a id="website2" href="https://welcareforyou.me/" target="_blank" style="color:#ff573d;">Website</a>
+                        </span>
+                    </p>
+                </div>
+            </div>
+            <!--Service 3-->
+            <div class="col-lg-4 col-md-12" style="margin-top:3%">
+                <div class="feature-item" style="height:300px;background-color:antiquewhite; cursor:pointer;" onclick="mClick(this)" onmousemove="mOver(this)" onmouseout="mOut(this)">
+                    <h4 id="service3" style="margin-top:6%;"></h4>
+                    <br />
+                    <p style="display:none;">3</p>
+                    <p>
+                        Location: <span id="address3"></span>
+                    </p>
+                    <p>
+                        Phone: <span id="phone3"></span>
+                    </p>
+                    <p>
+                        <span>
+                            <a id="website3" href="https://welcareforyou.me/" target="_blank" style="color:#ff573d;">Website</a>
+                        </span>
+                    </p>
+                </div>
+            </div>
+            <button class="primary-btn mt-3" type="button" id="backToSearchButton"
+                    style="margin-bottom:3%;" onclick="moreServiceOnClick()">
+                Search another suburb
+            </button>
+        </div>
+	</div>
+</section>
+<!--================ start footer Area =================-->
+<footer class="footer">
+	<div style="padding:10px; background-color:#15181d;">
+		<div class="container">
+			<p style="margin-top:8px;">
+				<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+				Copyright &copy;
+				<script>document.write(new Date().getFullYear());</script><a href="/Home/Index"> <span style="color:#ff573d;">WelCareForYou</span></a> All rights reserved
+				<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+			</p>
+		</div>
+	</div>
+</footer>
+<!--================ End footer Area =================-->
+
+<script async defer
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDs8uzSUmuitDEKNLhkyTuAQmUWXx_MZB0">
+</script>
+
+<script>
+    var map;
+    var jsonString;
+
+    function moreServiceOnClick() {
+        document.getElementById('search').style.display = "block";
+        document.getElementById('search').scrollIntoView({
+            behavior: 'smooth'
+        });
+    }
+
+    function initialize() {
+        document.getElementById('serviceResult').style.display = "none";
+		var postcode = document.getElementById("code").value;
+        if (postcode == "") {
+			document.getElementById("invalidPostcode").style.display = "inline-block";
+			return false;
+		}
+		else {
+			document.getElementById("invalidPostcode").style.display = "none";
+		}
+		var mapProp = {
+			center: new google.maps.LatLng(-37.840935, 144.946457),
+            zoom: 10,
+            styles: [
+                {
+                    "featureType": "administrative.land_parcel",
+                    "elementType": "labels",
+                    "stylers": [
+                        {
+                            "visibility": "off"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "poi",
+                    "elementType": "labels.text",
+                    "stylers": [
+                        {
+                            "visibility": "off"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "poi.business",
+                    "stylers": [
+                        {
+                            "visibility": "off"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "road",
+                    "elementType": "labels.icon",
+                    "stylers": [
+                        {
+                            "visibility": "off"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "road.local",
+                    "elementType": "labels",
+                    "stylers": [
+                        {
+                            "visibility": "off"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "transit",
+                    "stylers": [
+                        {
+                            "visibility": "off"
+                        }
+                    ]
+                }
+            ]
+
+		};
+		map = new google.maps.Map(document.getElementById("map"), mapProp);
+
+
+		document.getElementById("searchButton").disabled = true;
+		document.getElementById("load").style.display = "inline";
+		getAPIelement();
+	}
+        
+	function getAPIelement() {
+		var xhr = new XMLHttpRequest();
+		var postCode = String(document.getElementById('code').value);
+		connectString = "https://api.serviceseeker.com.au/api/v3/search/?area=" + postCode + "%2C%20VIC&catchment=prefer&healthcare_card_holders=true&key=UNDFUUWCHWGIJGTGMTBXZJDENAACETNJ%3AXBKSEBMIGVELOOSTGZFEJHKZWCKAFZUY&limit=10&minimum_should_match=30%25&q=%20-(coordinating%20bodies)%20(mental%20health)&type=service";
+
+		xhr.open('GET', connectString, true);
+		xhr.send();
+
+		xhr.onreadystatechange = processRequest;
+
+		function processRequest(e) {
+			if (xhr.readyState == 4 && xhr.status == 200) {
+				var response = JSON.parse(xhr.responseText);
+                jsonString = response;
+				getAPIElement(1);
+				getAPIElement(2);
+                getAPIElement(3);
+                
+                centerLat = (jsonString.objects[1].location.point.lat + jsonString.objects[2].location.point.lat + jsonString.objects[3].location.point.lat) / 3;
+                centerLng = (jsonString.objects[1].location.point.lon + jsonString.objects[2].location.point.lon + jsonString.objects[3].location.point.lon) / 3;
+
+                map.setCenter({ lat: centerLat, lng: centerLng });
+                map.setZoom(11);
+
+
+                document.getElementById('serviceResult').style.display = "block";
+                document.getElementById('resultTitle').scrollIntoView({
+                    behavior: 'smooth'
+                });
+				document.getElementById("load").style.display = "none";
+				document.getElementById("searchButton").disabled = false;
+
+				function getAPIElement(i) {
+					document.getElementById("service" + i).innerHTML = response.objects[i].name;
+					var apiAddress = response.objects[i].location.level.trim() + " "
+						+ response.objects[i].location.street_number + " "
+						+ response.objects[i].location.street_name + " "
+						+ response.objects[i].location.street_type + " "
+						+ response.objects[i].location.suburb
+					document.getElementById("address" + i).innerHTML = apiAddress;
+					document.getElementById("phone" + i).innerHTML = response.objects[i].phones[0].number;
+                    document.getElementById("website" + i).href = response.objects[i].web;
+
+					var iconBase = 'https://img.icons8.com/office/40/000000/heart-health.png';
+
+					var marker = new google.maps.Marker({
+                        position: { lat: response.objects[i].location.point.lat + (Math.random() / 25000), lng: response.objects[i].location.point.lon },
+						map: map,
+						title: response.objects[i].name,
+						 icon: iconBase 
+					});
+
+					var infowindow = new google.maps.InfoWindow({
+						content: response.objects[i].name
+					});
+
+					marker.addListener('click', function () {
+						infowindow.open(map, marker);
+					});
+				}
+			}
+		}
+    }
+
+    function mClick(obj) {
+        index = obj.querySelector("p").innerHTML;
+        objPosition = { lat: jsonString.objects[index].location.point.lat, lng: jsonString.objects[index].location.point.lon };
+        map.setCenter(objPosition);
+        map.setZoom(17);
+    }
+
+    function mOver(obj) {
+        obj.style.boxShadow = "3px 3px 5px 6px #cccccc";
+    }
+    function mOut(obj) {
+        obj.style.boxShadow = "";
+    }    
+</script>
+
+<script>
+    function scrollToIntro() {
+        document.getElementById('scrollSection1').scrollIntoView({
+            behavior: 'smooth'
+        });
+    }
+
+    AOS.init({
+        once: true,
+        offset: 200,
+        duration: 800,
+        easing: 'ease-in-sine',
+        delay: 100,
+    });
+</script>

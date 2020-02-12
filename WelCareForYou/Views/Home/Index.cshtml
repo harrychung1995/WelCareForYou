@@ -1,0 +1,205 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<style>
+	#home a {
+  padding-top: 60px;
+}
+</style>
+
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<!--================ start banner Area =================-->
+<section class="home-banner-area relative" id="home" data-parallax="scroll" data-image-src='../Content/images/family.jpeg'>
+    <div class="overlay overlay-bg"></div>
+    <div class="container">
+        <div class="row fullscreen justify-content-lg-end">
+            <div class="banner-content col-lg-7" id="homeBanner">
+                <h1 data-aos="fade-up" style="font-weight:400;">
+                    Avoid the Risk of Homelessness from Today <br>
+                </h1>
+                <h4 data-aos="fade-up" data-aos-delay="1100" style="color:white;">
+                    The number of Australian families facing homelessness is increasing. We provide a wide range of services such as cheaper housing options, early super access and mental health services.
+                </h4>
+                <div class="primary-btn mt-5" id="homeButton" style="background-color:#ff573d; color:white;" data-aos="zoom-in" data-aos-delay="1600" data-aos-offset="-100000">
+                    <span style="font-weight:bold;">Know More ></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================ End banner Area =================-->
+
+<!--================ Start Features Area =================-->
+<section class="features-area section-gap-top" id="section1">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="section-title">
+                    <h2>How <span>Can</span> We Help</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row feature_inner">
+            <div class="col-lg-4 col-md-12" data-aos="zoom-in-down" style="margin-bottom:2%">
+                <div class="feature-item" style="height:100%; cursor:pointer" onclick="location.href='/Rent/Index'">
+                    <div style="margin-bottom:20px;">
+                        <img src="~/Content/images/rentIcon.png" />
+                    </div>
+                    <h4>Cheaper Rent Options</h4>
+                    <p>
+                        Complete this short questionnaire so that we can provide you with better renting options!
+                    </p>
+                    <br id="blocker1" style="display:none;" />
+                    <div class="flip">
+                        <p>
+                            <div class="primary-btn mt-5" id="introButton">
+                                <span style="font-weight:bold; text-decoration:underline">Find out more !</span>
+                            </div>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12" data-aos="zoom-in-up" style="margin-bottom:2%">
+                <div class="feature-item" style="height:100%; cursor:pointer" onclick="location.href='/Super/Index'">
+                    <div style="margin-bottom:20px;">
+                        <img src="~/Content/images/superIcon.png" />
+                    </div>
+                    <h4>Claim your super</h4>
+                    <p>
+                        The Australian government has provisions under which you can claim your super early. Are you eligible to claim yours early?
+                    </p>
+                    <br id="blocker" style="display:none;" />
+                    <div class="flip">
+                        <p>
+                            <div class="primary-btn mt-5" id="introButton" >
+                                <span style="font-weight:bold; text-decoration:underline">Find out more !</span>
+                            </div>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12" data-aos="zoom-in-down" style="margin-bottom:2%">
+                <div class="feature-item" style="height:100%; cursor:pointer" onclick="location.href='/Service/Index'">
+                    <div style="margin-bottom:20px;">
+                        <img src="~/Content/images/doctor.png" />
+                    </div>
+                    <h4>Mental Health Services</h4>
+                    <p>
+                        Do you want to find mental health services in and around your suburb ?
+                        <br />
+                        <br />
+                    </p>
+                    <div class="flip">
+                        <p>
+                            <div class="primary-btn mt-5" id="introButton">
+                                <span style="font-weight:bold; text-decoration:underline">Find out more !</span>
+                            </div>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================ End Features Area =================-->
+
+<!--================ start footer Area =================-->
+<footer class="footer">
+    <div class="footer-area">
+        <div class="container">
+            <div class="row section_gap">
+                <div class="col-lg-5 col-md-6 col-sm-6">
+                    <div class="single-footer-widget tp_widgets">
+                        <h4 class="footer_title large_title">About Us</h4>
+                        <p>
+                            Through this website we are trying to fight the battle against homelessness by helping families avoid the risk of being homeless. We provide a wide range of functions such as cheaper rental options, early super access and mental health services.
+                        </p>
+                        <br />
+                        <br />
+                        <p>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            Copyright &copy;
+                            <script>document.write(new Date().getFullYear());</script> <a href="/Home/Index"> <span style="color:#ff573d;">WelCareForYou</span></a> All rights reserved <br />
+                            <span style="font-size:1px">| This template is made by <a href="https://colorlib.com" target="_blank">Colorlib</a></span>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        </p>
+                    </div>
+                </div>
+                <div class="offset-lg-1 col-lg-2 col-md-6 col-sm-6">
+                    <div class="single-footer-widget tp_widgets">
+                        <h4 class="footer_title"></h4>
+                        <ul class="list">
+                            <li><a href="#"></a></li>
+                            <li><a href="#"></a></li>
+                            <li><a href="#"></a></li>
+                            <li><a href="#"></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="offset-lg-1 col-lg-3 col-md-6 col-sm-6">
+                    <div class="single-footer-widget tp_widgets">
+                        <h4 class="footer_title">Quick links</h4>
+                        <div class="ml-5">
+                            <p class="sm-head">
+                                <a href="/Home/Index">
+                                    Home
+                                </a>
+                                <br />
+                            </p>
+
+                            <p class="sm-head">
+                                <a href="/Rent/Index">
+                                    Rent
+                                </a>
+                            </p>
+
+                            <p class="sm-head">
+                                <a href="/Super/Index">
+                                    Super
+                                </a>
+                            </p>
+                            <p class="sm-head">
+                                <a href="/Service/Index">
+                                    Health Service
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!--================ End footer Area =================-->
+
+<script>
+    document.getElementById("homeButton").addEventListener("click", smoothScrool);
+
+    function smoothScrool() {
+        document.getElementById('section1').scrollIntoView({
+            behavior: 'smooth'
+        });
+    }
+
+    AOS.init({
+        once: true,
+        //offset: 200,
+        duration: 800,
+        easing: 'ease-in-sine',
+        delay: 100,
+    });
+
+
+    var width = screen.width;
+    if (width >= 1600) {
+        document.getElementById('homeBanner').style.marginTop = "20%";        
+    }
+    if (width <= 1200) {
+        document.getElementById('blocker').style.display = "inline-block";
+    }
+    if (width <= 1200) {
+        document.getElementById('blocker1').style.display = "inline-block";
+    }
+</script>

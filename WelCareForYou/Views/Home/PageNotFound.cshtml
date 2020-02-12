@@ -1,0 +1,50 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <!-- Mobile Specific Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="~/Content/images/icon.png">
+    <!-- Author Meta -->
+    <meta name="author" content="WelCareForYou">
+    <!-- Meta Description -->
+    <meta name="description" content="WelCareForYou">
+    <!-- Meta Keyword -->
+    <meta name="keywords" content="homeless">
+    <!-- meta character set -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" />
+    <!-- Site Title -->
+    <title>WelCareForYou</title>
+    <link href="~/Content/css/PageNotFound.css" rel="stylesheet" />
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+</head>
+<body>
+    <div class="bubble" data-aos="zoom-in"></div>
+    <div class="bubble" data-aos="zoom-in"></div>
+    <div class="bubble" data-aos="zoom-in"></div>
+    <div class="bubble" data-aos="zoom-in"></div>
+    <div class="bubble" data-aos="zoom-in"></div>
+    <div class="main" data-aos="fade-up">
+        <h1 style="font-family: 'Lora',serif; font-size:40px; margin-bottom:3%;">WelCareForYou</h1>
+        <h1>Page Not Found</h1>
+        <p>It looks like you're lost...<br />No worries mate! We will care for you.</p>
+        <button type="button" onclick="window.location.href='/Home/Index'">Go back</button>
+    </div>
+    <script>
+        AOS.init({
+            once: true,
+            duration: 1000,
+            easing: 'ease-in-sine',
+        });
+    </script>
+</body>
+</html>

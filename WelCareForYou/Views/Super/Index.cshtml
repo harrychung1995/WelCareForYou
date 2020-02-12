@@ -1,0 +1,880 @@
+﻿@model WelCareForYou.Models.Client
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="~/Content/css/superForm.css" rel="stylesheet" />
+    <script>
+        AOS.init({
+            once: true,
+            offset: 200,
+            duration: 800,
+            easing: 'ease-in-sine',
+            delay: 100,
+        });
+    </script>
+</head>
+<style>
+    .panel 
+	{
+        display: none;
+    }
+
+    input[type="radio"]:checked + label {
+        font-weight: bold;
+        color: #ff573d;
+    }
+
+    input[type="checkbox"]:checked + label {
+        font-weight: bold;
+        color: #ff573d;
+    }
+
+    #home a {
+        padding-top: 60px;
+    }
+</style>
+
+
+<!--================ start banner Area =================-->
+<section class="banner-area relative" id="home" style="background-image:url('../Content/images/money.jpg')">
+    <div class="overlay overlay-bg"></div>
+    <div class="container">
+        <div class="row justify-content-lg-end align-items-center banner-content">
+            <div class="col-lg-5">
+                <h1 class="text-white" data-aos="fade-up">Claim your super early !</h1>
+                <p style="font-size:20px" data-aos="fade-up" data-aos-delay="1000">Did you know? Provisions made by the Australian government enable you to claim your super early under certain special situations.</p>
+            </div>
+        </div>
+        <div class="col-md-12 d-flex justify-content-center" style="min-height:80px;" data-aos="zoom-in" data-aos-offset="-100000">
+            <div>
+                <img id="scrollDown" style="cursor:pointer; margin-top:20%;" onclick="scrollToIntro()" alt="Arrow Down Icon" src="https://www.solodev.com/assets/anchor/arrow-down.png">
+            </div>
+        </div>
+    </div>
+</section>
+<!--================ End banner Area =================-->
+<section id="scrollSuperIntro"></section>
+<section class="about_area lite_bg" id="SuperIntro" data-aos="fade-up" data-aos-duration="800" data-aos-offset="-100000">
+    <div class="container">
+        <div class="row align-items-end">
+            <div class="col-lg-5">
+                <div class="about_details lite_bg">
+                    <h2>
+                        Are you eligible to claim your super early?
+                    </h2>
+                    <p class="top_text">
+                        Provide answers to these questions that will enable us let you know if you are eligible to claim your super early.
+                    </p>
+                    <div class="flip">
+                        <p>
+                            <div class="primary-btn mt-5" id="introButton">
+                                <span style="font-weight:bold; ">Try it now!</span>
+                            </div>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="about_bg d-lg-block d-none" style="background-image:url('../Content/images/superIndex.jpg')"></div>
+    </div>
+</section>
+
+
+
+<section id="SuperQuestionnair">
+    <!--item to be expanded: start-->
+    <div class="panel">
+        <div class="callto-area section-gap relative">
+            <div class="overlay overlay-bg"></div>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <p class="top_text"></p>
+                        <div class="call-wrap mx-auto tab">
+                            <h1>Step 1: Age</h1>
+							<p>
+								Please enter your birthday
+								<span id="EmptyDate" style="color:red; display:none;">Your input birthday is empty. Please input your birthday.</span>
+								<span id="InvalidDate" style="color:red; display:none;">Your input year of birth is before 1900. Please enter a year after 1900.</span>
+							</p>
+                            <p>
+                                <input type="date" id="datePickerId">
+
+                            </p>
+
+
+                            <div>
+                                <p>
+                                    Have you retired?
+
+                                    <span id="invalidRetire" style="color:red; display:none;">Please choose Yes or No</span>
+                                </p>
+                            </div>
+                            <div>
+
+                                <p>
+                                    <input type="radio" id="RetireYes" onclick="checkRetire()" name="retire" value="Yes" style="width:10px;" onclick="checkRetire()">
+                                    <label for="RetireYes">Yes</label>
+                                </p>
+                                <p>
+                                    <input type="radio" name="retire" onclick="checkRetire()" id="RetireNo" value="No" style="width:10px;" onclick="checkRetire()">
+                                    <label for="RetireNo">No</label>
+                                </p>
+
+                            </div>
+                            <div id="employed" style="display:none">
+                                <div>
+                                    <p>
+                                        Are you currently employed?
+										<span id="invalidEmployed" style="color:red; display:none;">Please choose Yes or No</span>
+                                    </p>
+                                </div>
+                                <div>
+                                    <p>
+                                        <input type="radio" name="lowSuper1" id="employedYes" value="Yes" style="width:10px;">
+                                        <label for="employedYes">Yes</label>
+                                    </p>
+                                    <p>
+                                        <input type="radio" name="lowSuper1" id="employedNo" value="No" style="width:10px;">
+                                        <label for="employedNo">No</label>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="form-group mt-2" style="float:right;">
+
+                                <button type="button" id="nextBtn1" onclick="show();nextPrevCheckTwo(1,'RetireYes', 'RetireNo','employedYes','employedNo')">Next</button>
+
+                            </div>
+                        </div>
+                        <!--Step 2: Compassionate Grounds-->
+                        <div class="call-wrap mx-auto tab">
+                            <h1>Step 2: Compassionate Grounds</h1>
+                            <div>
+                                <p style="text-align:left">
+                                    Are you ? <br />
+                                    <span id="invalidCheckbox" style="color:red; display:none;">Please select from the checkboxes</span>
+                                </p>
+
+                                <p align="left">
+                                    <input type="checkbox" onclick="checkCG()" id="CG1" name="CG1" value="CG1" style="width:10px;">
+                                    <label for="CG1">Paying for medical treatment for you or a dependant？</label>
+                                </p>
+
+                                <p align="left">
+                                    <input type="checkbox" onclick="checkCG()" id="CG2" name="CG2" value="CG2" style="width:10px;">
+                                    <label for="CG2">Making a payment on a loan to prevent you from losing your house？</label>
+                                </p>
+                                <p align="left">
+                                    <input type="checkbox" onclick="checkCG()" id="CG3" name="CG3" value="CG3" style="width:10px;">
+                                    <label for="CG3">Modifying your home or vehicle for the special needs of you or a dependant <br /> because of a severe disability？</label>
+                                </p>
+                                <p align="left">
+                                    <input type="checkbox" onclick="checkCG()" id="CG4" name="CG4" value="CG4" style="width:10px;">
+                                    <label for="CG4">Paying for expenses associated with a death, funeral or burial of a dependant？</label>
+                                </p>
+                                <p align="left">
+                                    <input type="checkbox" onclick="checkCG5()" id="CG5" name="CG5" value="CG5" style="width:10px;">
+                                    <label for="CG5">None of above</label>
+                                </p>
+
+
+                            </div>
+
+                            <div class="form-group mt-2" style="float:right;">
+                                <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                                <button type="button" id="nextBtn" onclick="nextPrevChecklist(1)">Next</button>
+
+                            </div>
+                        </div>
+                        <!--Step 3: Financial Hardship-->
+                        <div class="call-wrap mx-auto tab">
+                            <h1>Step 3: Financial Hardship</h1>
+                            <div>
+                                <p>
+                                    Are you unable to meet reasonable and immediate family living expenses?
+                                    <span id="invalidFinancial" style="color:red; display:none;">Please choose Maybe or No</span>
+                                </p>
+                            </div>
+                            <p>
+                                <input type="radio" name="financial" value="Maybe" id="maybeCheck" onclick="finCheckShowThePanel()" style="width:10px;">
+                                <label for="maybeCheck"> Maybe</label>
+                            </p>
+                            <p>
+                                <input type="radio" name="financial" value="No" id="noCheck" onclick="finCheckShowThePanel()" style="width:10px;">
+                                <label for="noCheck"> No</label>
+                            </p>
+
+                            <div id="ifMaybe" style="display:none">
+                                <!--If select maybe in step 3 (Within preservation age + 39 weeks)-->
+
+                                <div>
+                                    <p>
+                                        Have you received Commonwealth income support over 26 weeks?
+										<span id="invalid3.1" style="color:red; display:none;">Please choose Yes or No</span>
+                                    </p>
+
+                                </div>
+                                <p>
+                                    <input type="radio" name="financialHardship1" id="financialHardship1Yes" value="Yes" style="width:10px;">
+                                    <label for="financialHardship1Yes">Yes</label>
+                                </p>
+                                <p>
+                                    <input type="radio" name="financialHardship1" id="financialHardship1No" value="No" style="width:10px;">
+                                    <label for="financialHardship1No">No</label>
+                                </p>
+
+
+                                <div>
+                                    <p>
+                                        Do you receive Commonwealth income support now?
+										<span id="invalid3.2" style="color:red; display:none;">Please choose Yes or No</span>
+                                    </p>
+                                </div>
+                                <p>
+                                    <input type="radio" name="financialHardship2" id="financialHardship2Yes" value="Yes" style="width:10px;">
+                                    <label for="financialHardship2Yes">Yes</label>
+
+                                </p>
+                                <p>
+                                    <input type="radio" name="financialHardship2" ID="financialHardship2No" value="No" style="width:10px;">
+                                    <label for="financialHardship2No">No</label>
+                                </p>
+
+
+                            </div>
+
+                            
+
+                            <div class="form-group mt-2" style="float:right;">
+                                <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                                <button type="button" id="nextBtn" onclick="nextPrevCheckThree(1,'maybeCheck','noCheck','financialHardship1Yes','financialHardship1No','financialHardship2Yes','financialHardship2No')">Next</button>
+
+                            </div>
+                        </div>
+
+                        <!--Step 4: Terminal Medical Condition-->
+                        <div class="call-wrap mx-auto tab">
+                            <h1>Step 4: Terminal Medical Condition</h1>
+                            <div>
+                                <p>
+                                    Do you suffer from an illness, or have an injury, that is likely to result in death within a period (certification period) that ends no more than 24 months?
+									<span id="tmc" style="color:red; display:none;">Please choose Yes or No</span>
+                                </p>
+                            </div>
+                            <div>
+                                <p>
+                                    <input type="radio" name="tmc" value="Maybe" id="tmcYes" style="width:10px;">
+                                    <label for="tmcYes"> Yes</label>
+                                </p>
+                                <p>
+                                    <input type="radio" name="tmc" value="No" id="tmcNo" style="width:10px;">
+                                    <label for="tmcNo"> No</label>
+                                </p>
+                            </div>
+                            <div class="form-group mt-2" style="float:right;">
+                                <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                                <button type="button" id="nextBtn" onclick="nextPrevCheck(1,'tmcYes','tmcNo')">Next</button>
+
+                            </div>
+                        </div>
+                        <!--Step 5: Temporary Incapacity-->
+                        <div class="call-wrap mx-auto tab">
+                            <h1>Step 5: Temporary Incapacity</h1>
+                            <div>
+                                <p>
+                                    Are you temporarily unable to work or need to work less hours because of a physical or mental medical condition?
+									<span id="temporaryIncapacity" style="color:red; display:none;">Please choose Yes or No</span>
+                                </p>
+                            </div>
+                            <div>
+                                <p>
+                                    <input type="radio" name="temporaryIncapacity" id="temporaryIncapacityYes" value="Maybe" style="width:10px;">
+                                    <label for="temporaryIncapacityYes">Yes</label>
+                                </p>
+                                <p>
+                                    <input type="radio" name="temporaryIncapacity" value="No" id="temporaryIncapacityNo" style="width:10px;">
+                                    <label for="temporaryIncapacityNo">No</label>
+                                </p>
+                            </div>
+                            <div class="form-group mt-2" style="float:right;">
+                                <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                                <button type="button" id="nextBtn" onclick="nextPrevCheck(1,'temporaryIncapacityYes','temporaryIncapacityNo')">Next</button>
+
+                            </div>
+                        </div>
+                        <!--Step 6: Permanent Incapacity-->
+                        <div class="call-wrap mx-auto tab">
+                            <h1>Step 6: Permanent Incapacity</h1>
+                            <div>
+                                <p>
+                                    Do you have a permanent physical or mental medical condition that is likely to stop you from ever working again in a job you were qualified to do by education, training or experience?
+									<span id="permanentIncapacity" style="color:red; display:none;">Please choose Yes or No</span>
+                                </p>
+                            </div>
+                            <div>
+                                <p>
+                                    <input type="radio" name="permanentIncapacity" id="permanenyIncapacityYes" value="Maybe" style="width:10px;">
+                                    <label for="permanenyIncapacityYes"> Yes</label>
+                                </p>
+                                <p>
+                                    <input type="radio" name="permanentIncapacity" id="permanenyIncapacityNo" value="No" style="width:10px;">
+                                    <label for="permanenyIncapacityNo">No</label>
+                                </p>
+                            </div>
+                            <div class="form-group mt-2" style="float:right;">
+                                <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                                <button type="button" id="nextBtn" onclick="nextPrevCheck(1,'permanenyIncapacityYes','permanenyIncapacityNo')">Next</button>
+
+                            </div>
+                        </div>
+                        <!--Step 7: Super Less Than $200-->
+                        <div class="call-wrap mx-auto tab step7" onclick="checkRetire()">
+
+                            <h1>Step 7: Low Super</h1>
+
+                            <div>
+                                <p>
+                                    Is your gross super under $200? <br/>
+									<span id="lowSuper2" style="color:red; display:none;">Please choose Yes or No</span>
+                                </p>
+                            </div>
+                            <div>
+                                <p>
+                                    <input type="radio" name="lowSuper2" id="lowSuper2Yes" value="Maybe" style="width:10px;">
+                                    <label for="lowSuper2Yes">Yes</label>
+                                </p>
+                                <p>
+                                    <input type="radio" name="lowSuper2" id="lowSuper2No" value="No" style="width:10px;">
+                                    <label for="lowSuper2No">No</label>
+                                </p>
+                            </div>
+                            <div class="form-group mt-2" style="float:right;">
+                                <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                                <button type="button" id="nextBtn" onclick="submitResult('lowSuper2Yes','lowSuper2No')">Submit</button>
+                            </div>
+                        </div>
+                        <div class="tab"></div>
+                    </div>
+                </div>
+
+                <div style="text-align:center;margin-top:40px;">
+                    <label class="step"></label>
+                    <label class="step"></label>
+                    <label class="step"></label>
+                    <label class="step"></label>
+                    <label class="step"></label>
+                    <label class="step"></label>
+                    <label class="step"></label>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="about_area lite_bg" id="SuperResultEligible" style="display:none">
+    <div class="container">
+        <div class="row align-items-end">
+            <div class="col-lg-5">
+                <div class="about_details lite_bg">
+                    <h2>
+                        Your status of claiming your super early
+                    </h2>
+                    <h2 class="top_text">
+                        Eligible
+                    </h2>
+
+                </div>
+            </div>
+        </div>
+        <div class="about_bg d-lg-block d-none" style="background-image:url('../Content/images/superIndex.jpg')"></div>
+    </div>
+</section>
+
+<section class="about_area lite_bg" id="SuperResultIneligible" style="display:none">
+    <div class="container">
+        <div class="row align-items-end">
+            <div class="col-lg-5">
+                <div class="about_details lite_bg">
+                    <h2>
+                        Your status of claiming your super early
+                    </h2>
+                    <h2 class="top_text">
+                        Ineligible
+                    </h2>
+
+                </div>
+            </div>
+        </div>
+        <div class="about_bg d-lg-block d-none" style="background-image:url('../Content/images/superIndex.jpg')"></div>
+    </div>
+</section>
+
+<!--invalid Age-->
+<section class="blog-area section-gap-top" data-aos="zoom-in-up" id="AgeSectionFalse" style="display:none;margin-bottom:5px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-12">
+                <div class="home-blog-left">
+                    <h2>
+                        Early access
+                        <img style="width:33px" src="~/Content/images/superNo.png" />
+                    </h2>
+                    <p>
+                        Accodring to your inputs, you do not fulfill the criteria of early access to your super.
+                        To claim your super, you need to either reach your preservation age and retired or over 65 years of age.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 single-blog">
+                <div class="single-blog-info">
+                    <div class="thumb" style="text-align:center;">
+                        <img style="width:100px; " class="img-fluid" src="~/Content/images/superCal.png" />
+
+                    </div>
+					<h4>
+						<label id='displayMessage'></label>
+					</h4>
+                    <h3 style="text-align:center">
+                        <br />
+                        <label id='displayPerservationAge'></label>
+                    </h3>
+                    <p></p>
+                    <div class="meta-bottom d-flex">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 single-blog">
+                <div class="single-blog-info">
+                    <div class="thumb" style="text-align:center;">
+                        <img style="width:100px; " class="img-fluid" src="~/Content/images/superTime.png" alt="">
+                    </div>
+                    <h4>
+                        The nearest available time to claim your super (retired)...
+                    </h4>
+                    <h3 style="text-align:center">
+                        <label id='displayPerservationDate'></label>
+                    </h3>
+
+                    <div class="meta-bottom d-flex"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--valid age-->
+<section class="blog-area section-gap-top" id="AgeSectionTrue" style="display:none;margin-bottom:5px;" data-aos="zoom-in-up">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-12">
+                <div class="home-blog-left">
+                    <h2>
+                        Age
+
+                        <img style="width:40px" src="~/Content/images/superCheck.png" />
+                    </h2>
+                    <p>
+                        Accodring to your input, you have full access to your superannuation. Please contact your superannuation company to withdraw.
+                        To find out all the super you have, visit your <label style="cursor:pointer;"><a style="color:orangered;" href="https://my.gov.au/LoginServices/main/login?execution=e1s1">myGov ATO portal</a></label>.
+                    </p>
+                    <br />
+
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 single-blog">
+                <div class="single-blog-info">
+                    <div class="thumb" style="text-align:center;">
+                        <img style="width:100px; " class="img-fluid" src="~/Content/images/superLumpsum.png" alt="">
+                    </div>
+                    <h4>
+                        Lump-sum withdraw
+                    </h4>
+                    <p>
+                        You may be able to withdraw some or all of your super in a single payment, known as a 'lump sum', or even several lump sums.
+                        This means you give up the option to receive future monthly benefit payments in exchange for a cash-out payment now.
+                    </p>
+                    <div class="meta-bottom d-flex">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 single-blog">
+                <div class="single-blog-info">
+                    <div class="thumb" style="text-align:center;">
+                        <img style="width:100px; " class="img-fluid" src="~/Content/images/superIncomeStream.png" alt="">
+                    </div>
+                    <h4>
+                        Income stream
+                    </h4>
+                    <p>
+                        With an account-based income stream, the account increases and decreases as investment earnings come in, and fees and income go out.
+                        Alternatively, a non-account-based income stream guarantees a fixed level of income for life or a fixed term.
+                    </p>
+                    <div class="meta-bottom d-flex"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<!--valid compassionate grounds-->
+<section class="blog-area section-gap-top" id="compassionateSection" data-aos="zoom-in-up" style="display:none;margin-bottom:5px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-12">
+                <div class="home-blog-left">
+                    <h2>
+                        Compassionate Grounds
+                        <img style="width:40px" src="~/Content/images/superCheck.png" />
+                    </h2>
+                    <p>
+                        You have partial access to your superannuation. Please notice that under this catogory, the withdeawal super can only be used in
+                        <label style="font-weight: bold;">Medical, Accommodating a disability, Palliative care for a terminal illness, The recent passing of a dependant, and Preventing foreclosure or forced sale of home.</label>
+                        To find out more, visit your <label style="cursor:pointer;"><a style="color:orangered;" href="https://my.gov.au/LoginServices/main/login?execution=e1s1">myGov ATO portal</a></label>.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-12 single-blog">
+                <div class="single-blog-info">
+                    <div class="thumb" style="text-align:center;">
+                        <img style="width:100px; " class="img-fluid" src="~/Content/images/superLumpsum.png" alt="">
+                    </div>
+                    <h4>
+                        Partial access
+                    </h4>
+                    <p>
+                        You may be able to withdraw some your super according to ATO assessment. Currently, ATO does not process applications to access super on compassionate grounds over the phone.
+                        Please file your applicaiton through ATO website.
+                    </p>
+                    <div class="meta-bottom d-flex">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--valid Terminal Medical Condition-->
+<section class="blog-area section-gap-top" id="tmcSection" data-aos="zoom-in-up" style="display:none;margin-bottom:5px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-12">
+                <div class="home-blog-left">
+                    <h2>
+                        Terminal Medical Condition
+                        <img style="width:40px" src="~/Content/images/superCheck.png" />
+                    </h2>
+                    <p>
+                        You have full access to your superannuation with mediacal condition likely to result in your death within the next 24 months.
+                        Please notice that you need to prepare medical certification from 2 medical practitioners (at least one of whom is a specialist in the ilness) stating your health condition.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-12 single-blog">
+                <div class="single-blog-info">
+                    <div class="thumb" style="text-align:center;">
+                        <img style="width:100px; " class="img-fluid" src="~/Content/images/superLumpsum.png" alt="">
+                    </div>
+                    <h4>
+                        Lump-sum withdraw
+                    </h4>
+                    <p>
+                        You may be able to withdraw some or all of your super in a single payment, known as a 'lump sum', or even several lump sums.
+                        This means you give up the option to receive future monthly benefit payments in exchange for a cash-out payment now.
+                    </p>
+                    <div class="meta-bottom d-flex">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--valid temporary incapacity-->
+<section class="blog-area section-gap-top" id="temporaryIncapacitySection" data-aos="zoom-in-up" style="display:none;margin-bottom:5px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-12">
+                <div class="home-blog-left">
+                    <h2>
+                        Temporary Incapacity
+                        <img style="width:40px" src="~/Content/images/superCheck.png" />
+                    </h2>
+                    <p>
+                        You are entilte the temporary incapacity category to access your super. Medical certificate from at least 2 appropriately qualifiled Medical Practioners
+                        confirming your incapacity is required.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-12 single-blog">
+                <div class="single-blog-info">
+                    <div class="thumb" style="text-align:center;">
+                        <img style="width:100px; " class="img-fluid" src="~/Content/images/superIncomeStream.png" alt="">
+                    </div>
+                    <h4>
+                        Income stream
+                    </h4>
+                    <p>
+                        You will receive the super in regular payemnts over the time you are unable to work only. Additionally, under this category, your income stream will be taxed.
+                    </p>
+                    <div class="meta-bottom d-flex"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--valid low super-->
+<section class="blog-area section-gap-top" id="lowSuperSection" data-aos="zoom-in-up" style="display:none; margin-bottom:5px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-12">
+                <div class="home-blog-left">
+                    <h2>
+                        Low Super
+                        <img style="width:40px" src="~/Content/images/superCheck.png" />
+                    </h2>
+                    <p>
+                        You may be able to access your super if your employment is terminated and the balance of your super account is less than $200,
+                        or if you have formerly lost super held by a super fund or by us that is less than $200.
+                        To find out your loss super, visit your <label style="cursor:pointer;"><a style="color:orangered;" href="https://my.gov.au/LoginServices/main/login?execution=e1s1">myGov ATO portal</a></label>.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-12 single-blog">
+                <div class="single-blog-info">
+                    <div class="thumb" style="text-align:center;">
+                        <img style="width:100px; " class="img-fluid" src="~/Content/images/superLumpsum.png" alt="">
+                    </div>
+                    <h4>
+                        Lump-sum withdraw
+                    </h4>
+                    <p>
+                        You may be able to withdraw all of your super in a single payment, known as a 'lump sum'.
+                    </p>
+                    <div class="meta-bottom d-flex">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--valid permanent incapacity-->
+<section class="blog-area section-gap-top" id="permanentIncapacitySection" data-aos="zoom-in-up" style="display:none;margin-bottom:5px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-12">
+                <div class="home-blog-left">
+                    <h2>
+                        Permanent Incapacity
+                        <img style="width:40px" src="~/Content/images/superCheck.png" />
+                    </h2>
+                    <p>
+                        You are entilte the permanent incapacity category to access your super. This category is also known as disability super benefit.
+                        At least 2 medical practitioners must certify this for you to receive concessional tax treatment.
+                        Please contact your superannuation company to withdraw.
+                        To find out all the super you have, visit your <label style="cursor:pointer;"><a style="color:orangered;" href="https://my.gov.au/LoginServices/main/login?execution=e1s1">myGov ATO portal</a></label>.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 single-blog">
+                <div class="single-blog-info">
+                    <div class="thumb" style="text-align:center;">
+                        <img style="width:100px; " class="img-fluid" src="~/Content/images/superLumpsum.png" alt="">
+                    </div>
+                    <h4>
+                        Lump-sum withdraw
+                    </h4>
+                    <p>
+                        You may be able to withdraw some or all of your super in a single payment, known as a 'lump sum', or even several lump sums.
+                        This means you give up the option to receive future monthly benefit payments in exchange for a cash-out payment now.
+                    </p>
+                    <div class="meta-bottom d-flex">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 single-blog">
+                <div class="single-blog-info">
+                    <div class="thumb" style="text-align:center;">
+                        <img style="width:100px; " class="img-fluid" src="~/Content/images/superIncomeStream.png" alt="">
+                    </div>
+                    <h4>
+                        Income stream
+                    </h4>
+                    <p>
+                        With an account-based income stream, the account increases and decreases as investment earnings come in, and fees and income go out.
+                        Alternatively, a non-account-based income stream guarantees a fixed level of income for life or a fixed term.
+                    </p>
+                    <div class="meta-bottom d-flex"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--2 yes valid financial hardship - within-->
+<section class="blog-area section-gap-top" id="financialSectionPart" data-aos="zoom-in-up" style="display:none; margin-bottom:5px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-12">
+                <div class="home-blog-left">
+                    <h2>
+                        Financial Hardship
+                        <img style="width:40px" src="~/Content/images/superCheck.png" />
+                    </h2>
+                    <p>
+                        According to your circumstances, you have single access to your super benefit. Official documentation from a Commonwealth Department or Agency is required.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-12 single-blog">
+                <div class="single-blog-info">
+                    <div class="thumb" style="text-align:center;">
+                        <img style="width:100px; " class="img-fluid" src="~/Content/images/superLumpsum.png" alt="">
+                    </div>
+                    <h4>
+                        Single access
+                    </h4>
+                    <p>
+                        You may withdraw an amount not less than $1,000 and not more than $10,000 in each 12-month period beginning on the date of the first payment.
+                        Only one payment is permitted in any 12-month period.
+                    </p>
+                    <div class="meta-bottom d-flex">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!--3 yes + age 39 week valid financial hardship - over-->
+<section class="blog-area section-gap-top" id="financialSectionAll" data-aos="zoom-in-up" style="display:none; margin-bottom:5px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-12">
+                <div class="home-blog-left">
+                    <h2>
+                        Financial Hardship
+                        <img style="width:40px" src="~/Content/images/superCheck.png" />
+                    </h2>
+                    <p>
+                        According to your circumstances, you have total access to your super benefit. Please contact your superannuation company to withdraw.
+                        To find out all the super you have, visit your <label style="cursor:pointer;"><a style="color:orangered;" href="https://my.gov.au/LoginServices/main/login?execution=e1s1">myGov ATO portal</a></label>.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 single-blog">
+                <div class="single-blog-info">
+                    <div class="thumb" style="text-align:center;">
+                        <img style="width:100px; " class="img-fluid" src="~/Content/images/superLumpsum.png" alt="">
+                    </div>
+                    <h4>
+                        Lump-sum withdraw
+                    </h4>
+                    <p>
+                        You may be able to withdraw some or all of your super in a single payment, known as a 'lump sum', or even several lump sums.
+                        This means you give up the option to receive future monthly benefit payments in exchange for a cash-out payment now.
+                    </p>
+                    <div class="meta-bottom d-flex">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 single-blog">
+                <div class="single-blog-info">
+                    <div class="thumb" style="text-align:center;">
+                        <img style="width:100px; " class="img-fluid" src="~/Content/images/superIncomeStream.png" alt="">
+                    </div>
+                    <h4>
+                        Income stream
+                    </h4>
+                    <p>
+                        With an account-based income stream, the account increases and decreases as investment earnings come in, and fees and income go out.
+                        Alternatively, a non-account-based income stream guarantees a fixed level of income for life or a fixed term.
+                    </p>
+                    <div class="meta-bottom d-flex"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--================ start footer Area =================-->
+<footer class="footer">
+    <div style="padding:10px; background-color:#15181d;">
+        <div class="container">
+            <p style="margin-top:8px;">
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                Copyright &copy;
+                <script>document.write(new Date().getFullYear());</script><a href="/Home/Index"> <span style="color:#ff573d;">WelCareForYou</span></a> All rights reserved
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            </p>
+        </div>
+    </div>
+</footer>
+<!--================ End footer Area =================-->
+
+
+<script>
+    //step 1 check the age
+    //document.getElementById("nextBtn1"), addEventListener("click", show);
+    //In the final step submit the answers
+    //document.getElementById("submitBtn"), addEventListener("click", submitResult);
+</script>
+
+<script>
+    datePickerId.max = new Date().toISOString().split("T")[0];
+</script>
+
+<script src="~/Content/js/superform.js"></script>
+
+<script>
+    function scrollToIntro() {
+        document.getElementById('scrollSuperIntro').scrollIntoView({
+            behavior: 'smooth'
+        });
+        document.getElementById('SuperResultIneligible').scrollIntoView({
+            behavior: 'smooth'
+        });
+        document.getElementById('SuperResultEligible').scrollIntoView({
+            behavior: 'smooth'
+        });
+    }
+
+    document.getElementById("introButton").addEventListener("click", timeout);
+    var index = 0;
+    function smoothScrool() {
+        if (index == 0) {
+            document.getElementById('SuperQuestionnair').scrollIntoView({
+                behavior: 'smooth'
+            });
+            index = 1;
+        }
+        else {
+            index = 0;
+        }
+    }
+    function timeout() {
+        myVar = setTimeout(smoothScrool, 650);
+    }
+</script>
+
+<script>
+    AOS.init({
+        offset: 200,
+        duration: 800,
+        easing: 'ease-in-sine',
+        delay: 100,
+    });
+</script>
+

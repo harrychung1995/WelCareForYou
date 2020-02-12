@@ -1,0 +1,295 @@
+﻿@model IEnumerable<WelCareForYou.Models.House>
+@{
+    ViewBag.Title = "Result";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<head>
+    <link href="~/Content/css/circle.css" rel="stylesheet" />
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="pragma" content="no-cache">
+</head>
+
+<!--================ start banner Area =================-->
+<section>
+    <div class="overlay" style="height:80px; position:relative; background-color:#15181d;"></div>
+    <div class="container">
+        <div class="row justify-content-lg-end align-items-center banner-content">
+            <div class="col-lg-5"></div>
+        </div>
+    </div>
+</section>
+<!--================ End Header Area =================-->
+
+
+<section class="about_area lite_bg" id="RentResult" data-aos="fade-up">
+    <div class="container">
+        <div class="row align-items-end">
+            <div class="col-lg-5">
+                <div class="about_details lite_bg">
+                    <h2>
+                        Based on your profile...
+                    </h2>
+                    <h2 class="top_text" id="resultSection">
+                        <span>The recommended rent per week is <br /></span>
+                        <span>$ </span>@ViewBag.acceptableRent <span> or below.</span>
+                    </h2>
+                    <div class="col-md-12 d-flex justify-content-center" style="min-height:80px;">
+                        <div>
+                            <img id="scrollDown" style="cursor:pointer; margin-top:20px; height:50px;" onclick="scrollToResult()" alt="Arrow Down Icon" src="~/Content/images/rentArrow.png">
+                        </div>
+                    </div>
+                    <div style="background-color: antiquewhite;border-radius: 10px;">
+                        <div id="noResultText" class="col-11" style="margin-left:3%; display:none;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="about_bg d-lg-block d-none" id="resultPhoto" style="background-image:url('../../Content/images/house.jpeg')"></div>
+    </div>
+</section>
+
+<section id="suburbResult" data-aos-anchor-placement="top-bottom">
+    <div style="margin-left:7%; margin-right:7%; margin-top:5%">
+        <div>
+            <h1 style="margin-bottom:15px">
+                @ViewBag.ResultTitle
+            </h1>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 col-xl-6" style="padding-left:2%">
+                <div id="map" style="width:100%; height:900px; border-radius:10px; margin-bottom:15px;"></div>
+            </div>
+
+            <div class="col-lg-12 col-xl-6">
+                @foreach (var item in Model)
+                {
+                    <div class="col-md-6 ftco-animate" style="padding-bottom: 15px; float:left">
+                        <div border:3px solid #000 style="background-color:antiquewhite; border-radius:10px; word-break:keep-all; cursor:pointer;" onclick="mClick(this)" onmousemove="mOver(this)" onmouseout="mOut(this)">
+                            <br />
+                            <h4 class="suburbName" style="text-decoration:underline; text-align:center; font-weight:bold; color:#ff4409; font-size:170%;">@Html.DisplayFor(modelItem => item.SuburbSuburbName)</h4>
+                            <p></p>
+                            <div class="col-12">
+                                <table style="color:black;" align="center">
+                                    <tr>
+                                        <td><a style="font-weight:bold; font-size:120%;">Average Price </a></td>
+                                        <td style="text-align:center; font-size:120%;"><a><span class="icon-money"> @Html.DisplayFor(modelItem => item.MediumPrice)</span></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a style="font-weight:bold; color:black; font-size:120%;">Number of Rooms </a></td>
+                                        <td style="text-align:center; font-size:120%;"><span class="icon-bed"> @Html.DisplayFor(modelItem => item.NumOfRoom)</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a style="font-weight:bold; color:black; font-size:120%;">House Type </a></td>
+                                        <td style="text-align:center; font-size:120%;"><span class="icon-building"> @Html.DisplayFor(modelItem => item.HouseType)</span></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div style="text-align:center; margin-top:2%;" class="col-12">
+                                <span class="icon-arrow-down col-12" style="background-color:forestgreen; color:aliceblue; border-radius:5px; font-size:130%"> @Html.DisplayFor(modelItem => item.DiffPercent) %</span><br>
+                            </div>
+                            <br />
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <br />
+        <br />
+    </div>
+</section>
+
+<div id="emptyDiv" style="position:relative; height:270px; display:none;">
+</div>
+
+<!--================ start footer Area =================-->
+<footer class="footer">
+    <div style="padding:10px; background-color:#15181d;">
+        <div class="container">
+            <p style="margin-top:8px;">
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                Copyright &copy;
+                <script>document.write(new Date().getFullYear());</script><a href="/Home/Index"> <span style="color:#ff573d;">WelCareForYou</span></a> All rights reserved
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            </p>
+        </div>
+    </div>
+</footer>
+<!--================ End footer Area =================-->
+
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDs8uzSUmuitDEKNLhkyTuAQmUWXx_MZB0&callback=initMap">
+</script>
+
+<script>
+    var map;
+    var centerLatLng = { lat: -37.840935, lng: 144.946457 };
+
+    function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 10,
+            center: centerLatLng,
+            styles: [
+                {
+                    "featureType": "administrative.land_parcel",
+                    "elementType": "labels",
+                    "stylers": [
+                        {
+                            "visibility": "off"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "poi",
+                    "elementType": "labels.text",
+                    "stylers": [
+                        {
+                            "visibility": "off"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "poi.business",
+                    "stylers": [
+                        {
+                            "visibility": "off"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "road",
+                    "elementType": "labels.icon",
+                    "stylers": [
+                        {
+                            "visibility": "off"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "road.local",
+                    "elementType": "labels",
+                    "stylers": [
+                        {
+                            "visibility": "off"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "transit",
+                    "stylers": [
+                        {
+                            "visibility": "off"
+                        }
+                    ]
+                }
+            ]
+        });
+
+        var suburbList = document.getElementsByClassName("suburbName");
+
+        var i;
+        for (i = 0; i < suburbList.length; i++) {
+            var contentString = '<h4>' + suburbList.item(i).innerHTML + '</h4>';
+            var infowindow = new google.maps.InfoWindow({
+                content: contentString
+            });
+            var address = suburbList.item(i).innerHTML;
+            var searchAddress = suburbList.item(i).innerHTML + ' melbourne';
+            var geocoder = new google.maps.Geocoder();
+            geoMarker(address, searchAddress, infowindow);
+        }
+
+        function geoMarker(address, searchAddress, infowindow) {
+            geocoder.geocode({ 'address': searchAddress }, function (results, status) {
+                if (status == 'OK') {
+                    var marker = new google.maps.Marker({
+                        position: results[0].geometry.location,
+                        map: map,
+                        title: address
+                    });
+
+                    map.setCenter(results[0].geometry.location);
+                    map.setZoom(12);
+
+                    marker.addListener('click', function () {
+                        infowindow.open(map, marker);
+                    });
+
+                } else {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+        }
+    }
+
+    //suburb click
+    function mClick(obj) {
+        //map.setZoom(10);
+        var selectedSuburb = obj.querySelector("h4").innerHTML + ' Melbourne';
+        var geocoder = new google.maps.Geocoder();
+        geoMarker(selectedSuburb);
+
+        function geoMarker(searchAddress) {
+            geocoder.geocode({ 'address': searchAddress }, function (results, status) {
+                if (status == 'OK') {
+                    map.setCenter(results[0].geometry.location);
+                    map.setZoom(15);
+                } else {
+                    //alert('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+        }
+    }
+
+    //shadow animation
+    function mOver(obj) {
+        obj.style.boxShadow = "3px 3px 5px 6px #cccccc";
+    }
+    function mOut(obj) {
+        obj.style.boxShadow = "";
+    }
+</script>
+
+<!--alter result text-->
+<script>
+    function scrollToResult() {
+        document.getElementById('suburbResult').scrollIntoView({
+            behavior: 'smooth'
+        });
+    }
+
+    var resultText = '@ViewBag.ResultTitle';
+    if (resultText == 'Great! You are not at risk of homelessness.') {
+        document.getElementById('scrollDown').style.display = 'none';
+        document.getElementById('suburbResult').style.display = 'none';
+        document.getElementById('resultSection').innerHTML = resultText;
+        document.getElementById('resultSection').style.fontSize = '45px';
+        document.getElementById('emptyDiv').style.display = 'block';
+        document.getElementById('resultPhoto').style.height = '790px';
+    }
+    if (resultText == 'Sorry! There is no option for you.') {
+        document.getElementById('scrollDown').style.display = 'none';
+        document.getElementById('suburbResult').style.display = 'none';
+        document.getElementById('resultSection').innerHTML = resultText;
+        var noResult = '<h2 style="font-size: x-large;">To reach our for government support:</h2><p style="font-size:30px;"><a style="color:#ff573d;" href="tel:1800 825 955">Call 1800 825 955</a></p><h4 style="margin-top:20px;">Free 24 hour phone line. Someone will take your call to get you help nearby. If after hours, they will refer you to the Salvation Army Crisis Services.</h4><p style="margin-top: 20px;">* resource provide by Department of Health and Human Services, State Government of Victoria, Australia</p>';
+        document.getElementById('noResultText').style.display = 'block';
+        document.getElementById('noResultText').innerHTML = noResult;
+        document.getElementById('resultSection').style.fontSize = '45px';
+        document.getElementById('resultPhoto').style.height = '790px';
+    }
+</script>
+
+<script>
+    AOS.init({
+        once: true,
+        offset: 200,
+        duration: 500,
+        easing: 'ease-in-sine',
+        delay: 100,
+    });
+</script>

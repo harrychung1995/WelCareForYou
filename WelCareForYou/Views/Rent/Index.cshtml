@@ -1,0 +1,243 @@
+﻿@model WelCareForYou.Models.Client
+@{
+	ViewBag.Title = "Index";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+	
+<head>
+    <link href="~/Content/css/rentForm.css" rel="stylesheet" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css">
+    <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+    <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.jquery.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.css">
+</head>
+<style>
+	.panel {
+		display: none;
+	}
+
+	.form-dropdown {
+		text-indent: 40%;
+	}
+
+	#home a {
+		padding-top: 60px;
+	}
+</style>
+<!--================ Start banner Area =================-->
+<section class="banner-area relative" id="home"style="background-image:url('../Content/images/rentBanner.jpg')" >
+    <div class="overlay overlay-bg"></div>
+	<div class="container">
+		<div class="row justify-content-lg-end align-items-center banner-content" >
+			<div class=" col-lg-5">
+				<h1 class="text-white" data-aos="fade-up">Save money on renting !</h1>
+				<p style="font-size:20px" data-aos="fade-up" data-aos-delay="1000">
+					The Australian government recommends you to spend less than 30% of your income on renting.
+					We provide affordable renting options so that you can stay below the 30% threshold.
+				</p>
+
+			</div>
+
+		</div>
+		<div class="col-md-12 d-flex justify-content-center" style="min-height:80px;" data-aos="zoom-in" data-aos-offset="-100000">
+			<div>
+				<img id="scrollDown" style="cursor:pointer; margin-top:20%;" onclick="scrollToIntro()" alt="Arrow Down Icon" src="https://www.solodev.com/assets/anchor/arrow-down.png">
+			</div>
+		</div>
+	</div>		
+</section>
+<!--================ End banner Area =================-->
+
+<!--================ Start rent intro Area =================-->
+<section id="scrollSection1"></section>
+<section class="about_area lite_bg" id="section1" data-aos="fade-up" data-aos-duration="800"  data-aos-offset="-100000">
+    <div class="container">
+        <div class="row align-items-end">
+            <div class="col-lg-5">
+                <div class="about_details lite_bg">
+                    <h2>
+                        Get More Affordable Renting Options?
+                    </h2>
+                    <p class="top_text">
+                        Complete this questionnaire so that we can analyse your current situation and provide feasible renting options.
+                    </p>
+                    <div class="flip">
+                        <p>
+                            <div class="primary-btn mt-5" id="introButton">
+                                <span style="font-weight:bold;">Find cheap options now!</span>
+                            </div>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="about_bg d-lg-block d-none" style="background-image:url('../Content/images/house.jpeg')"></div>
+    </div>
+</section>
+<!--================ End rent intro Area =================-->
+
+<!--================ Start questionnaire Area =================-->
+<section id="rentForm">
+    <div class="panel">
+        <div class="callto-area section-gap relative">
+            <div class="overlay overlay-bg"></div>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <p class="top_text"></p>
+                        @using (Html.BeginForm("Index", "Rent", FormMethod.Post, new { @id = "form1" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+
+                            <form class="form-contact contact_form" id="regForm" action="" method="POST" target="_blank">
+
+                                <div class="call-wrap mx-auto tab">
+                                    <h1>Affordable Renting Options</h1>
+                                    <p>
+                                        Please choose your age group. <span id="invalidAge" style="color:red; display:none;">Invalid</span>
+                                    </p>
+                                    @Html.DropDownList("AgeGroup", ViewData["AgeGroup"] as SelectList, "-- Please Select --",
+                                    htmlAttributes: new { @class = "form-control", required = "required"})
+
+                                    @Html.ValidationMessageFor(model => model.AgeGroup, "", new { @class = "text-danger" })
+
+                                    <div>
+                                        <p>
+                                            Please choose your gender.
+                                            <span id="invalidGender" style="color:red; display:none;">Invalid</span>
+                                        </p>
+                                        @Html.DropDownList("Gender", ViewData["Gender"] as SelectList, "-- Please Select --", htmlAttributes: new { @class = "form-control", required = "required", id = "test" })
+                                        @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="call-wrap mx-auto tab">
+                                    <h1>Affordable Renting Options</h1>
+                                    <p>
+                                        Please choose your current living Suburb.<br />
+                                        ( We will try to show you cheaper options in and around your current suburb. )
+                                        <span id="invalidSuburb" style="color:red; display:none;">Invalid</span>
+                                    </p>
+                                    @Html.DropDownList("SuburbSuburbName", ViewData["SuburbName"] as SelectList, "-- Please Select --", htmlAttributes: new { @class = "form-control nostyle", required = "required", id = "suburbDropdown" })
+                                    @Html.ValidationMessageFor(model => model.SuburbSuburbName, "", new { @class = "text-danger" })
+                                    <div>
+                                        <p>
+                                            Please enter you Salary per week <br />
+                                            ( According to the Australian Government, it is recommend to spend less than 30% of your income towards renting. )
+                                            <span id="invalidSalary" style="color:red; display:none;">Invalid</span>
+                                        </p>
+                                        @Html.EditorFor(model => model.Salary, new
+                                           {
+                                               htmlAttributes = new
+                                               {
+                                                   @class = "form-control",
+                                                   placeholder = "-- Please enter --",
+                                                   required = "required",
+                                                   min = "1",
+                                                   max = "3500"
+                                               }
+                                           })
+                                        @Html.ValidationMessageFor(model => model.Salary, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="call-wrap mx-auto tab">
+                                    <h1>Affordable Renting Options</h1>
+                                    <p>
+                                        Please input your household rent per week.<br />
+                                        (You will be shown results only if your rent is more than 30% of your income.)
+                                        <span id="invalidRent" style="color:red; display:none;">Invalid</span>
+                                    </p>
+                                    <input type="number" id="rent" class="form-control" placeholder="-- Please enter --" ," name="rent"
+                                           required="required" min="1" , max="1000" style="margin-top:15px; margin-bottom:25px;">
+                                    <p class="help-block text-danger"></p>
+                                    <div>
+                                        <p>
+                                            Please choose the number of bedrooms you need.
+                                            <span id="invalidRoom" style="color:red; display:none;">Invalid</span>
+                                        </p>
+                                        @Html.DropDownList("NumOfRoom", ViewData["NumOfRoom"] as SelectList, " -- Please select --", htmlAttributes: new { @class = "form-control", placeholder = "Please enter number of rooms you need", required = "required" })
+                                        @Html.ValidationMessageFor(model => model.NumOfRoom, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="tab"></div>
+                            </form>
+                        }
+                    </div>
+                </div>
+                <div style="overflow:auto; position:relative">
+                    <br />
+                    <br />
+                    <div class="form-group mt-2" style="float:right;">
+                        <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                        <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                    </div>
+                </div>
+                <div style="text-align:center;margin-top:40px;">
+                    <span class="step"></span>
+                    <span class="step"></span>
+                    <span class="step"></span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<!--================ End questionnaire Area =================-->
+
+<!--================ start footer Area =================-->
+<footer class="footer">
+    <div style="padding:10px; background-color:#15181d;">
+        <div class="container">
+            <p style="margin-top:8px;">
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                Copyright &copy;
+                <script>document.write(new Date().getFullYear());</script><a href="/Home/Index"> <span style="color:#ff573d;">WelCareForYou</span></a> All rights reserved
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            </p>
+        </div>
+    </div>
+</footer>
+<!--================ End footer Area =================-->
+
+<script src="~/Content/js/form.js"></script>
+
+<script>
+    document.getElementById("introButton").addEventListener("click", timeout);
+    var index = 0;
+    AOS.init({
+        once: true,
+        offset: 200,
+        duration: 800,
+        easing: 'ease-in-sine',
+        delay: 100,
+    });
+
+    function scrollToIntro() {
+        document.getElementById('scrollSection1').scrollIntoView({
+            behavior: 'smooth'
+        });
+    }   
+
+    function smoothScrool() {
+        if (index == 0) {
+            document.getElementById('rentForm').scrollIntoView({
+                behavior: 'smooth'
+            });
+        }       
+    }
+
+    function timeout() {
+        if (index = 1) {
+            index = 0;
+        }
+        else {
+            index = 1;
+        }
+        myVar = setTimeout(smoothScrool, 500);
+    }    
+</script>
