@@ -1,2 +1,2 @@
 # WelCareForYou
-Project WelCareForYou for industry experience
+Project WelCareForYou for Monash University industry experience
